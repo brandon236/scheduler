@@ -22,10 +22,10 @@
       background-color: darken($white, 5%);
       color: $dark-background;
 
-      &:hover {
-        background-color: darken($white, 5%);
-      }
-    }
+       &:hover {
+         background-color: darken($white, 5%);
+       }
+     }
 
     &--full {
       opacity: $inactive-opacity;
