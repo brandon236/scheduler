@@ -3,13 +3,10 @@ import Button from "components/Button"
 import InterviewerList from "components/InterviewerList"
 import { action } from "@storybook/addon-actions/dist/preview";
 
-// const interviewer = {
-//   id: 1,
-//   name: "Sylvia Palmer",
-//   avatar: "https://i.imgur.com/LpaY82x.png"
-// };
 
 export default function Form(props) {
+  const [name, setName] = useState(props.name || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   const reset = () => {
     setName("")
@@ -20,9 +17,6 @@ export default function Form(props) {
      reset();
      props.onCancel();
    }
-
-  const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
     return (
       <main className="appointment__card appointment__card--create">
         <section className="appointment__card-left">
