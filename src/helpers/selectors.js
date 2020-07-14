@@ -3,8 +3,31 @@ import React, { useState } from "react";
 
 export function getAppointmentsForDay(state, day) {
   let found = false;
+  //let foundObject = state.filter(stateDay => stateDay.name === day);
   let foundObject = {};
   const appointmentArr = [];
+   for (const i of state.days) {
+     if (i.name === day) {
+       found = true;
+       foundObject = i;
+       break;
+     }
+   }
+   if (!found) {
+     return [];
+   }
+   for (const j of foundObject.appointments) {
+     if (state.appointments[j] !== undefined) {
+       appointmentArr.push(state.appointments[j]);
+     }
+   }
+   return appointmentArr;
+}
+
+export function getInterviewersForDay(state, day) {
+  let found = false;
+  let foundObject = {};
+  const interviewArr = [];
   for (const i of state.days) {
     if (i.name === day) {
       found = true;
@@ -15,12 +38,12 @@ export function getAppointmentsForDay(state, day) {
   if (!found) {
     return [];
   }
-  for (const j of foundObject.appointments) {
-    if (state.appointments[j] !== undefined) {
-      appointmentArr.push(state.appointments[j]);
+  for (const j of foundObject.interviewers) {
+    if (state.interviewers[j] !== undefined) {
+      interviewArr.push(state.interviewers[j]);
     }
   }
-  return appointmentArr;
+  return interviewArr;
 }
 
 export function getInterview(state, interview) {

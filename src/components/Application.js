@@ -12,55 +12,59 @@ import axios from "axios";
 
 import { getAppointmentsForDay } from "helpers/selectors";
 
+import { getInterviewersForDay } from "helpers/selectors";
+
 import { getInterview } from "helpers/selectors";
 
+import useVisualMode from "hooks/useVisualMode";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-    interview: {
-      student: "Brooke Myer Miller",
-      interviewer: {
-        id: 2,
-        name: "Tori Malcom",
-        avatar: "https://i.imgur.com/Nmx0Qxo.png",
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "3pm",
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Brandon Macleod",
-      interviewer: {
-        id: 3,
-        name: "Mildred Nazir",
-        avatar: "https://i.imgur.com/T2WwVfS.png",
-      }
-    }
-  }
-];
+
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "12pm",
+//   },
+//   {
+//     id: 2,
+//     time: "1pm",
+//     interview: {
+//       student: "Lydia Miller-Jones",
+//       interviewer: {
+//         id: 1,
+//         name: "Sylvia Palmer",
+//         avatar: "https://i.imgur.com/LpaY82x.png",
+//       }
+//     }
+//   },
+//   {
+//     id: 3,
+//     time: "2pm",
+//     interview: {
+//       student: "Brooke Myer Miller",
+//       interviewer: {
+//         id: 2,
+//         name: "Tori Malcom",
+//         avatar: "https://i.imgur.com/Nmx0Qxo.png",
+//       }
+//     }
+//   },
+//   {
+//     id: 4,
+//     time: "3pm",
+//   },
+//   {
+//     id: 5,
+//     time: "4pm",
+//     interview: {
+//       student: "Brandon Macleod",
+//       interviewer: {
+//         id: 3,
+//         name: "Mildred Nazir",
+//         avatar: "https://i.imgur.com/T2WwVfS.png",
+//       }
+//     }
+//   }
+// ];
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -70,6 +74,44 @@ export default function Application(props) {
   });
 
 
+  function bookInterview(id, interview) {
+    //console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log(appointments);
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+   .then(() => {
+    setState({
+      ...state,
+      appointments
+    });
+   });
+  }
+
+  function deleteInterview(id, interview){
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log(appointments);
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+   .then(() => {
+    setState({
+      ...state,
+      appointments
+    });
+   });
+  }
   
   const setDay = day => setState({ ...state, day});
 
@@ -86,6 +128,10 @@ export default function Application(props) {
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
+
+  const interviewers = getInterviewersForDay(state, state.day);
+  //console.log(interviewers);
+
 
   return (
     <main className="layout">
@@ -119,13 +165,18 @@ export default function Application(props) {
               id={appointment.id}
               time={appointment.time}
               interview={interview}
+              interviewers={interviewers}
+              bookInterview = {bookInterview}
+              deleteInterview = {deleteInterview}
             />
           );
         })
       }
-        <Appointment 
-          key="last" time="5pm" 
-        />
+        {/* <Appointment 
+          key="last"
+          time="5pm"
+          interviewers={interviewers}
+        /> */}
       </section>
     </main>
   );
