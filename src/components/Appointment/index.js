@@ -10,6 +10,8 @@ import Status from "components/Appointment/Status";
 
 import Confirm from "components/Appointment/Confirm";
 
+import Error from "components/Appointment/Error";
+
 import useVisualMode from "hooks/useVisualMode";
 
 
@@ -21,6 +23,8 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
 const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -34,6 +38,7 @@ const { mode, transition, back } = useVisualMode(
     transition(SAVING)
     props.bookInterview(props.id, interview)
     .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true));
   }
 
   function deleteItem() {
@@ -41,7 +46,8 @@ const { mode, transition, back } = useVisualMode(
     console.log(props.id);
     transition(DELETING);
     props.deleteInterview(props.id, interview)
-    .then(() => transition(EMPTY));
+    .then(() => transition(EMPTY))
+    .catch(error => transition(ERROR_DELETE, true));
   }
 
   function confirmDelete() {
@@ -98,6 +104,18 @@ const { mode, transition, back } = useVisualMode(
         message="Are you sure you want to delete this appointment?"
         onConfirm={deleteItem}
         onCancel={back}
+      />
+    )}
+    {mode === ERROR_SAVE && (
+      <Error 
+        message="Could not create appointment"
+        onError = {() => back()}
+      />
+    )}
+    {mode === ERROR_DELETE && (
+      <Error 
+        message="Could not cancel appointment"
+        onError = {() => back()}
       />
     )}
     </React.Fragment>
