@@ -60,7 +60,7 @@ const { mode, transition, back } = useVisualMode(
   }
 
   return (
-    <React.Fragment>
+    <article data-testid="appointment">
       <Header 
         time={props.time}
       />
@@ -118,6 +118,6 @@ const { mode, transition, back } = useVisualMode(
         onError = {() => back()}
       />
     )}
-    </React.Fragment>
+    </article>
   )
 };
