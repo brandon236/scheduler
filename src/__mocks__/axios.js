@@ -7,7 +7,7 @@ const fixtures = {
       name: "Monday",
       appointments: [1, 2],
       interviewers: [1, 2],
-      spots: 0,
+      spots: 1,
     },
     {
       id: 2,
@@ -54,6 +54,9 @@ const fixtures = {
     },
   },
 };
+export const reset = () => {
+  fixtures.days[0].spots = 1;
+};
 
 export default {
   get: jest.fn((url) => {
@@ -81,7 +84,17 @@ export default {
       });
     }
   }),
-  put: jest.fn((url) => {
+  put: jest.fn((url, data) => {
+    if (data.interview.student !== "Lydia Miller-Jones") {
+      fixtures.days[0].spots -= 1;
+    }
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content",
+    });
+  }),
+  delete: jest.fn(() => {
+    fixtures.days[0].spots += 1;
     return Promise.resolve({
       status: 204,
       statusText: "No Content",

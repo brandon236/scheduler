@@ -18,22 +18,19 @@ import { getInterview } from "helpers/selectors";
 
 import useVisualMode from "hooks/useVisualMode";
 
-import { useApplicationData } from "hooks/useApplicationData"
-
-
+import { useApplicationData } from "hooks/useApplicationData";
 
 export default function Application(props) {
   const {
-    state, 
+    state,
     setDay,
     bookInterview,
-    deleteInterview 
+    deleteInterview,
   } = useApplicationData();
 
   const appointments = getAppointmentsForDay(state, state.day);
 
   const interviewers = getInterviewersForDay(state, state.day);
-
 
   return (
     <main className="layout">
@@ -45,11 +42,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList 
-          days={state.days}
-          day={state.day}
-          setDay={setDay}
-          />
+          <DayList days={state?.days} day={state?.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -58,9 +51,8 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-      {
-        appointments.map(appointment => {
-          const interview = getInterview(state, appointment.interview)
+        {appointments.map((appointment) => {
+          const interview = getInterview(state, appointment.interview);
           return (
             <Appointment
               key={appointment.id}
@@ -68,12 +60,12 @@ export default function Application(props) {
               time={appointment.time}
               interview={interview}
               interviewers={interviewers}
-              bookInterview = {bookInterview}
-              deleteInterview = {deleteInterview}
+              bookInterview={bookInterview}
+              deleteInterview={deleteInterview}
+              data-test-id="appointment"
             />
           );
-        })
-      }
+        })}
         {/* <Appointment 
           key="last"
           time="5pm"
