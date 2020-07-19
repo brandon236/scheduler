@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 const fixtures = {
   days: [
     {

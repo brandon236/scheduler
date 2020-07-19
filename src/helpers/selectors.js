@@ -1,43 +1,77 @@
-import React, { useState } from "react";
-
+// export function getAppointmentsForDay(state, day) {
+//   let found = false;
+//   let foundObject = {};
+//   const appointmentArr = [];
+//   for (const i of state.days) {
+//     if (i.name === day) {
+//       found = true;
+//       foundObject = i;
+//       break;
+//     }
+//   }
+//   if (!found) {
+//     return [];
+//   }
+//   for (const j of foundObject.appointments) {
+//     if (state.appointments[j] !== undefined) {
+//       appointmentArr.push(state.appointments[j]);
+//     }
+//   }
+//   return appointmentArr;
+// }
 
 export function getAppointmentsForDay(state, day) {
-  let found = false;
-  //let foundObject = state.filter(stateDay => stateDay.name === day);
-  let foundObject = {};
+  //Finds object with matching day
+  let foundObject = state.days.find((object) => object.name === day);
   const appointmentArr = [];
-   for (const i of state.days) {
-     if (i.name === day) {
-       found = true;
-       foundObject = i;
-       break;
-     }
-   }
-   if (!found) {
-     return [];
-   }
-   for (const j of foundObject.appointments) {
-     if (state.appointments[j] !== undefined) {
-       appointmentArr.push(state.appointments[j]);
-     }
-   }
-   return appointmentArr;
-}
 
-export function getInterviewersForDay(state, day) {
-  let found = false;
-  let foundObject = {};
-  const interviewArr = [];
-  for (const i of state.days) {
-    if (i.name === day) {
-      found = true;
-      foundObject = i;
-      break;
-    }
-  }
-  if (!found) {
+  if (foundObject === undefined) {
+    //If nothing was found then return an empty array
     return [];
   }
+
+  //Goes through appointments array and returns the timeslots that have interviews scheduled
+  for (const j of foundObject.appointments) {
+    if (state.appointments[j] !== undefined) {
+      appointmentArr.push(state.appointments[j]);
+    }
+  }
+  return appointmentArr;
+}
+
+// export function getInterviewersForDay(state, day) {
+//   let found = false;
+//   let foundObject = {};
+//   const interviewArr = [];
+//   for (const i of state.days) {
+//     if (i.name === day) {
+//       found = true;
+//       foundObject = i;
+//       break;
+//     }
+//   }
+//   if (!found) {
+//     return [];
+//   }
+//   for (const j of foundObject.interviewers) {
+//     if (state.interviewers[j] !== undefined) {
+//       interviewArr.push(state.interviewers[j]);
+//     }
+//   }
+//   return interviewArr;
+// }
+
+export function getInterviewersForDay(state, day) {
+  //Finds object with matching day
+  let foundObject = state.days.find((object) => object.name === day);
+  const interviewArr = [];
+
+  if (foundObject === undefined) {
+    //If nothing was found then return an empty array
+    return [];
+  }
+
+  //Goes through interviewers array and returns avaliable interviewers
   for (const j of foundObject.interviewers) {
     if (state.interviewers[j] !== undefined) {
       interviewArr.push(state.interviewers[j]);

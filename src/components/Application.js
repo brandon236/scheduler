@@ -8,15 +8,11 @@ import Appointment from "components/Appointment";
 
 import "components/Appointment/styles.scss";
 
-import axios from "axios";
-
 import { getAppointmentsForDay } from "helpers/selectors";
 
 import { getInterviewersForDay } from "helpers/selectors";
 
 import { getInterview } from "helpers/selectors";
-
-import useVisualMode from "hooks/useVisualMode";
 
 import { useApplicationData } from "hooks/useApplicationData";
 
@@ -66,11 +62,6 @@ export default function Application(props) {
             />
           );
         })}
-        {/* <Appointment 
-          key="last"
-          time="5pm"
-          interviewers={interviewers}
-        /> */}
       </section>
     </main>
   );

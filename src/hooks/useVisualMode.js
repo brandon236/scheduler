@@ -6,7 +6,7 @@ export default function useVisualMode(initial) {
 
   function transition(newValue, replace = false) {
     if (replace) {
-      history[history.length - 1] = newValue
+      history[history.length - 1] = newValue;
       setHistory(history);
     } else {
       setHistory([...history, newValue]);
@@ -24,9 +24,9 @@ export default function useVisualMode(initial) {
   }
 
   return {
-     mode ,
-     transition,
-     back,
-     history
+    mode,
+    transition,
+    back,
+    history,
   };
 }

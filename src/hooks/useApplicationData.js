@@ -11,7 +11,6 @@ export function useApplicationData(props) {
   });
 
   function bookInterview(id, interview) {
-    //console.log(id, interview);
     let days = [];
     const appointment = {
       ...state.appointments[id],
@@ -42,7 +41,6 @@ export function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log(appointments);
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
@@ -59,8 +57,6 @@ export function useApplicationData(props) {
   }
 
   const setDay = (day) => setState({ ...state, day });
-
-  //const setDays = days => setState(prev => ({ ...prev, days }));
 
   useEffect(() => {
     Promise.all([
