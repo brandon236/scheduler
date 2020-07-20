@@ -26,3 +26,9 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screenshots
+![An empty appointment slot](https://github.com/brandon236/scheduler/blob/master/docs/Empty.png)
+![Creating a new appointment](https://github.com/brandon236/scheduler/blob/master/docs/Create%20New.png)
+![Appointment after creation](https://github.com/brandon236/scheduler/blob/master/docs/Appointment%20Created.png)
+![Deleting an appointment](https://github.com/brandon236/scheduler/blob/master/docs/Delete%20Appointment.png)
