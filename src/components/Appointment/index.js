@@ -29,6 +29,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //Set new interview data and set mode to show state
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -41,6 +42,7 @@ export default function Appointment(props) {
       .catch((error) => transition(ERROR_SAVE, true));
   }
 
+  //Sets interview data to null and set mode to empty state
   function deleteItem() {
     const interview = null;
     transition(DELETING);
@@ -50,6 +52,7 @@ export default function Appointment(props) {
       .catch((error) => transition(ERROR_DELETE, true));
   }
 
+  //Renders the correct component based on the mode
   return (
     <article data-testid="appointment">
       <Header time={props.time} />
@@ -65,7 +68,7 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
-          interviewer={1}
+          interviewer={props.interviewers[0].id}
           onCancel={back}
           onSave={save}
         />

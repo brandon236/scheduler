@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import "components/DayListItem.scss";
 
+//Takes spots value and formats it into a more readable sentence
 const formatSpots = function (num) {
   if (num === 0) {
     return "no spots remaining";

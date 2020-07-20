@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "components/Application.scss";
 
@@ -22,7 +22,7 @@ export default function Application(props) {
     setDay,
     bookInterview,
     deleteInterview,
-  } = useApplicationData();
+  } = useApplicationData(); //Set state values to useApplicationData return value
 
   const appointments = getAppointmentsForDay(state, state.day);
 

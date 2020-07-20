@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export function useApplicationData(props) {
   const [state, setState] = useState({
@@ -10,6 +10,7 @@ export function useApplicationData(props) {
     interviewers: {},
   });
 
+  //Saves the new interview data using an axios put request
   function bookInterview(id, interview) {
     let days = [];
     const appointment = {
@@ -23,14 +24,19 @@ export function useApplicationData(props) {
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(() => {
-        return axios.get("http://localhost:8001/api/days");
+        return axios.get("http://localhost:8001/api/days"); //New data call to update the spots remaining
       })
       .then((response) => {
         days = response.data;
-        setState({ ...state, days, appointments });
+        setState({
+          ...state,
+          days,
+          appointments,
+        });
       });
   }
 
+  //Removes the interview data using axios delete
   function deleteInterview(id, interview) {
     let days = [];
     const appointment = {
@@ -44,15 +50,15 @@ export function useApplicationData(props) {
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
-        return axios.get("http://localhost:8001/api/days");
+        return axios.get("http://localhost:8001/api/days"); //Makes a get request to update the spots remaining
       })
       .then((response) => {
         days = response.data;
-        setState((prev) => ({
+        setState({
           ...state,
           days,
           appointments,
-        }));
+        });
       });
   }
 

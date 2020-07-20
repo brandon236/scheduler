@@ -56,6 +56,7 @@ export const reset = () => {
   fixtures.days[0].spots = 1;
 };
 
+//Get requests based on which data is being requested
 export default {
   get: jest.fn((url) => {
     if (url === "http://localhost:8001/api/days") {
@@ -82,6 +83,8 @@ export default {
       });
     }
   }),
+
+  //Put request decreases spots remaining by 1
   put: jest.fn((url, data) => {
     if (data.interview.student !== "Lydia Miller-Jones") {
       fixtures.days[0].spots -= 1;
@@ -91,6 +94,7 @@ export default {
       statusText: "No Content",
     });
   }),
+
   delete: jest.fn(() => {
     fixtures.days[0].spots += 1;
     return Promise.resolve({

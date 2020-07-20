@@ -1,25 +1,3 @@
-// export function getAppointmentsForDay(state, day) {
-//   let found = false;
-//   let foundObject = {};
-//   const appointmentArr = [];
-//   for (const i of state.days) {
-//     if (i.name === day) {
-//       found = true;
-//       foundObject = i;
-//       break;
-//     }
-//   }
-//   if (!found) {
-//     return [];
-//   }
-//   for (const j of foundObject.appointments) {
-//     if (state.appointments[j] !== undefined) {
-//       appointmentArr.push(state.appointments[j]);
-//     }
-//   }
-//   return appointmentArr;
-// }
-
 export function getAppointmentsForDay(state, day) {
   //Finds object with matching day
   let foundObject = state.days.find((object) => object.name === day);
@@ -38,28 +16,6 @@ export function getAppointmentsForDay(state, day) {
   }
   return appointmentArr;
 }
-
-// export function getInterviewersForDay(state, day) {
-//   let found = false;
-//   let foundObject = {};
-//   const interviewArr = [];
-//   for (const i of state.days) {
-//     if (i.name === day) {
-//       found = true;
-//       foundObject = i;
-//       break;
-//     }
-//   }
-//   if (!found) {
-//     return [];
-//   }
-//   for (const j of foundObject.interviewers) {
-//     if (state.interviewers[j] !== undefined) {
-//       interviewArr.push(state.interviewers[j]);
-//     }
-//   }
-//   return interviewArr;
-// }
 
 export function getInterviewersForDay(state, day) {
   //Finds object with matching day
@@ -86,6 +42,7 @@ export function getInterview(state, interview) {
   if (interview === null) {
     return null;
   }
+  //Finds interviewer
   for (const i of values) {
     if (i.id === interview.interviewer) {
       studentObject.student = interview.student;
