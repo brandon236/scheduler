@@ -86,7 +86,7 @@ export default {
 
   //Put request decreases spots remaining by 1
   put: jest.fn((url, data) => {
-    if (data.interview.student !== "Lydia Miller-Jones") {
+    if (data.interview.student !== "Lydia Miller-Jones") { //
       fixtures.days[0].spots -= 1;
     }
     return Promise.resolve({
@@ -95,6 +95,7 @@ export default {
     });
   }),
 
+  //Delete request increases spots remaining by 1
   delete: jest.fn(() => {
     fixtures.days[0].spots += 1;
     return Promise.resolve({
